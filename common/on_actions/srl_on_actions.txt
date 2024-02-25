@@ -1,0 +1,57 @@
+# Executed as a leader has died
+# This = Country
+# From = Leader
+on_leader_death = {
+	events = {
+		srl.1
+	}
+}
+
+# # Triggers when ground combat starts
+# # This = planet
+# # From = country attacking
+# on_ground_combat_started = {
+
+# }
+
+# This = owner of ship 1 (destroyed)
+# From = owner of ship 2 (combatant)
+# FromFrom = ship 1
+# FromFromFrom = ship 2
+on_ship_destroyed_victim = {
+	events = {
+		srl.2
+	}
+}
+
+# # An army has been killed in ground combat
+# # This = owner
+# # From = army
+# # FromFrom = opponent
+# # FromFromFrom = planet
+# on_army_killed_in_combat = {
+
+# }
+
+# # An army has ceased to exist for any other reason
+# # This = country
+# # From = army
+# on_army_killed_no_combat = {
+
+# }
+
+
+# Triggers when the game starts
+on_game_start = {
+	events = {
+		srl_init.1
+	}
+}
+
+# No scope, like on_game_start
+# Does not run when loading MP saves due to OOS concerns
+on_single_player_save_game_load = {
+	events = {
+		srl_init.1
+	}
+}

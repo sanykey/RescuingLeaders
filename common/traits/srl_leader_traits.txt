@@ -1,0 +1,77 @@
+leader_trait_srl_dummy_1 = {
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = GFX_leader_trait_skirmisher
+		RARITY = common
+		COUNCIL = yes
+		TIER = 1
+	}
+	leader_class = { commander official scientist }
+	selectable_weight = 0
+}
+
+leader_trait_srl_dummy_2 = {
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = GFX_leader_trait_skirmisher
+		RARITY = common
+		COUNCIL = yes
+		TIER = 1
+	}
+	leader_class = { commander official scientist }
+	selectable_weight = 0
+}
+
+leader_trait_srl_dummy_3 = {
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = GFX_leader_trait_skirmisher
+		RARITY = common
+		COUNCIL = yes
+		TIER = 1
+	}
+	leader_class = { commander official scientist }
+	selectable_weight = 0
+}
+
+leader_trait_srl_dummy_4 = {
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = GFX_leader_trait_skirmisher
+		RARITY = common
+		COUNCIL = yes
+		TIER = 1
+	}
+	leader_class = { commander official scientist }
+	selectable_weight = 0
+}
+
+leader_trait_srl_dummy_5 = {
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = GFX_leader_trait_skirmisher
+		RARITY = common
+		COUNCIL = yes
+		TIER = 1
+	}
+	leader_class = { commander official scientist }
+	selectable_weight = 0
+}
+
+leader_trait_srl_dummy_6 = {
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = GFX_leader_trait_skirmisher
+		RARITY = common
+		COUNCIL = yes
+		TIER = 1
+	}
+	leader_class = { commander official scientist }
+	selectable_weight = 0
+}

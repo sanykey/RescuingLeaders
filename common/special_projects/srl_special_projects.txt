@@ -1,0 +1,39 @@
+special_project = {
+	key = srl_rescure_our_leader_sp
+	days_to_research = @srl_sp_days_to_research
+
+	location = yes
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+	
+	timelimit = @srl_sp_timelimit
+	
+	event_scope = ship_event
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+	}
+	
+	on_success = {
+		ship_event = { id = srl.3 }
+	}
+}
+
+special_project = {
+	key = srl_rescure_their_leader_sp
+	days_to_research = @srl_sp_days_to_research
+
+	location = yes
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+	
+	timelimit = @srl_sp_timelimit
+	
+	event_scope = ship_event
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+	}
+	
+	on_success = {
+		ship_event = { id = srl.4 }
+	}
+}

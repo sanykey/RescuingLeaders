@@ -1,0 +1,18 @@
+# scope = planet
+srl_closest_planet_to_fleet_distance = {
+	base = 0
+	complex_trigger_modifier = {
+		trigger = distance
+		trigger_scope = this
+		parameters = {
+			source = event_target:t_destroyed_fleet
+			same_solar_system = yes
+		}
+		mode = add
+	}
+}
+
+srl_recovering_leader_timeout = {
+	base = @srl_sp_timelimit
+	add = @srl_sp_days_to_research
+}

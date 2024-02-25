@@ -1,0 +1,24 @@
+namespace = srl_init
+
+event = {
+	id = srl_init.1
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		NOT = { exists = event_target:srl_data_storage }
+	}
+
+	immediate = {
+		create_country = {
+			type = srl_data_storage
+			effect = {
+				save_global_event_target_as = srl_data_storage
+
+				add_modifier = {
+					modifier = srl_remove_initial_skill
+				}
+			}
+		}
+	}
+}

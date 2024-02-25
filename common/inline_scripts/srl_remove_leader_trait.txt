@@ -1,0 +1,8 @@
+# inline script srl_remove_leader_trait
+1 = {
+	modifier = {
+		factor = 0
+		NOT = { has_trait = $T$ }
+	}
+	remove_trait = $T$
+}

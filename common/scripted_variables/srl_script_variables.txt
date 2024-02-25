@@ -1,0 +1,3 @@
+@srl_sp_timelimit = 360
+@srl_sp_days_to_research = 120
+@srl_notification_days = 10

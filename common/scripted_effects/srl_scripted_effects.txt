@@ -1,0 +1,313 @@
+srl_get_recovering_leader_target = {
+	event_target:srl_data_storage = {
+		random_owned_leader = {
+			limit = {
+				fromfrom = {
+					has_planet_flag = srl_has_recovering_leader@prev
+				}
+			}
+			# log = ">> recovering_leader found [this.GetName]"
+			save_event_target_as = t_recovered_leader
+		}
+	}
+}
+
+
+complete_leader_recovering= {
+	owner = {
+		add_modifier = {
+			modifier = srl_remove_initial_skill
+		}
+	}
+	event_target:t_recovered_leader = {
+		set_owner = from.owner
+	}
+
+	create_message = {
+		type = SRL_LEADER_RESCUED
+		localization = SRL_LEADER_RESCUED_MESSAGE
+		days = @srl_notification_days
+		target = fromfrom
+		variable = {
+			type = name
+			localization = SHIP
+			scope = this
+		}
+		variable = {
+			type = name
+			localization = PLANET
+			scope = fromfrom
+		}
+		variable = {
+			type = name
+			localization = LEADER
+			scope = event_target:t_recovered_leader
+		}
+	}
+
+	owner = {
+		remove_modifier = srl_remove_initial_skill
+	}
+}
+
+remove_random_trait = {
+	random_list = {
+		# generic traits
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_adventurous_spirit }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_adventurous_spirit L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_adventurous_spirit L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_eager }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_eager L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_resilient }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_resilient L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_adaptable }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_adaptable L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_politician }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_politician L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_capitalist }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_capitalist L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_private_mines }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_private_mines L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_homesteader }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_homesteader L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = trait_ruler_champion_of_the_people }
+		inline_script = { script = srl_downgrade_leader_trait T = trait_ruler_champion_of_the_people L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_gifted }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_gifted L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_scrapper }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_scrapper L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_entrepreneur }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_entrepreneur L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_venerated }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_venerated L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_emotional_support_pet }
+
+		# generic DESTINY TRAITS
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_educator }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_master_bureaucrat }
+
+		# admiral traits
+		inline_script = { script = srl_remove_leader_trait 		T = trait_ruler_corvette_focus }
+		inline_script = { script = srl_remove_leader_trait 		T = trait_ruler_destroyer_focus }
+		inline_script = { script = srl_remove_leader_trait 		T = trait_ruler_cruiser_focus }
+		inline_script = { script = srl_remove_leader_trait 		T = trait_ruler_battleship_focus }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_fleet_logistician }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_skirmisher }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_skirmisher L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_aggressive }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_aggressive L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_cautious }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_cautious L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_unyielding }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_unyielding L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_engineer }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_engineer L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_trickster }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_trickster L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_wrecker }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_wrecker L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_wrecker L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_annihilator }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_annihilator L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_annihilator L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_artillerist }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_artillerist L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_artillerist L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_commanding_presence }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_commanding_presence L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_commanding_presence L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_corsair }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_corsair L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_corsair L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_demolisher }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_demolisher L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_demolisher L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_shipbreaker }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_shipbreaker L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_shipbreaker L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_archaeo_specialization }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_archaeo_specialization L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_archaeo_specialization L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_artillery_specialization }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_artillery_specialization L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_artillery_specialization L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_carrier_specialization }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_carrier_specialization L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_carrier_specialization L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_rocketry_specialization }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_rocketry_specialization L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_rocketry_specialization L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_gunship_specialization }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_gunship_specialization L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_gunship_specialization L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_juryrigger }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_juryrigger L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_juryrigger L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_surgical_bombardment }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_surgical_bombardment L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_surgical_bombardment L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_scout }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_scout L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_scout L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_gale_speed }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_gale_speed L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_gale_speed L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = trait_ruler_fortifier }
+		inline_script = { script = srl_downgrade_leader_trait T = trait_ruler_fortifier L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = trait_ruler_fortifier L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_armada_logistician }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_armada_logistician L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_armada_logistician L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = trait_ruler_military_pioneer }
+		inline_script = { script = srl_downgrade_leader_trait T = trait_ruler_military_pioneer L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = trait_ruler_military_pioneer L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_intimidator }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_intimidator L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_intimidator L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_border_guard }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_border_guard L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_border_guard L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_crew_trainer }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_crew_trainer L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_crew_trainer L = "_3" DL = "_2" }
+
+		# admiral DESTINY TRAITS
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_master_gunner }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_military_overseer }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_armorer }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_destiny_engineer }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_guerilla_tactics }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_survivalist }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_maven_of_war }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_peacekeeper }
+
+		# general traits
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_defence_engineer }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_defence_engineer L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_butcher }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_butcher L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_restrained }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_restrained L = "_2" DL = "" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_dreaded }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_dreaded L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_dreaded L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_heavy_hitter }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_heavy_hitter L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_heavy_hitter L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_interrogator }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_interrogator L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_interrogator L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_crusader }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_crusader L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_crusader L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_overseer }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_overseer L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_overseer L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = trait_ruler_from_the_ranks }
+		inline_script = { script = srl_downgrade_leader_trait T = trait_ruler_from_the_ranks L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = trait_ruler_from_the_ranks L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = trait_ruler_recruiter }
+		inline_script = { script = srl_downgrade_leader_trait T = trait_ruler_recruiter L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = trait_ruler_recruiter L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_consul_general }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_consul_general L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_consul_general L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_shadow_broker }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_shadow_broker L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_shadow_broker L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_home_guard }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_home_guard L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_home_guard L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_hardy }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_hardy L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_hardy L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_martinet }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_martinet L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_martinet L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_warden }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_warden L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_warden L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_reinforcer }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_reinforcer L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_reinforcer L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_guardian }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_guardian L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_guardian L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_conscripter }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_conscripter L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_conscripter L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_conscripter }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_conscripter L = "_2" DL = "" }
+		inline_script = { script = srl_downgrade_leader_trait T = leader_trait_conscripter L = "_3" DL = "_2" }
+
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_taskmaster }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_fortress_cracker }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_chainbreaker }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_honored_warmaster }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_academia_recruiter }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_supreme_warrior }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_spymaster }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_totalitarian }
+		inline_script = { script = srl_remove_leader_trait 		T = leader_trait_bellicose }
+	}
+}

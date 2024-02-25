@@ -1,0 +1,4 @@
+srl_remove_initial_skill = {
+	leader_initial_skill = -99
+	leader_trait_selection_options_add = -99
+}

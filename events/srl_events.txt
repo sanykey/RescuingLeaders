@@ -1,0 +1,266 @@
+namespace = srl
+
+# on_leader_death
+# This = Country
+# From = Leader
+country_event = {
+	id = srl.1
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			has_leader_flag = has_destroyed_ship
+		}
+	}
+
+	immediate = {
+		# log = ">> on_leader_death THIS [this.GetName] FROM [from.GetName]"
+		save_event_target_as = t_owner
+
+		random_country = {
+			limit = {
+				from = {
+					has_leader_flag = has_destroyed_ship_by_country@prev
+				}
+			}
+			# log = ">> killed by country: THIS [this.GetName]"
+			save_event_target_as = t_combatant_country
+		}
+
+		random_system = {
+			limit = {
+				from = {
+					has_leader_flag = has_destroyed_ship_system@prev
+				}
+			}
+			# log = ">> killed in system: THIS [this.GetName]"
+			random_system_planet = {
+				limit = {
+					from = {
+						has_leader_flag = has_destroyed_ship_near_planet@prev
+					}
+				}
+				save_event_target_as = t_planet
+				# log = ">> killed near planet: THIS [this.GetName]"
+			}
+		}
+
+		if = {
+			limit = {
+				exists = event_target:t_planet
+			}
+
+			# To optimize the game: remove leaders who have not been saved and are no longer relevant. 
+			event_target:srl_data_storage = {
+				every_owned_leader = {
+					limit = {
+						NOT = { has_leader_flag = srl_should_be_alive }
+					}
+					kill_leader = { show_notification = yes }
+				}
+			}
+
+			add_modifier = {
+				modifier = srl_remove_initial_skill
+			}
+
+			event_target:srl_data_storage = {
+				clone_leader = {
+					target = from
+					effect = {
+						save_event_target_as = t_recovered_leader
+					}
+				}
+			}
+
+			clone_leader = {
+				target = event_target:t_recovered_leader
+				effect = {
+					remove_random_trait = yes
+
+					add_trait_no_notify = leader_trait_substance_abuser
+					set_owner = event_target:srl_data_storage
+	
+					set_timed_leader_flag = {
+						flag = srl_should_be_alive
+						days = value:srl_recovering_leader_timeout
+					}
+					event_target:t_planet = {
+						set_timed_planet_flag = {
+							flag = srl_has_recovering_leader@prev
+							days = value:srl_recovering_leader_timeout
+						}
+						set_timed_planet_flag = {
+							flag = srl_has_recovering_leader
+							days = value:srl_recovering_leader_timeout
+						}
+					}
+				}
+			}
+
+			event_target:t_recovered_leader = {
+				kill_leader = { show_notification = no }
+			}
+
+			remove_modifier = srl_remove_initial_skill
+
+			event_target:t_planet = {
+				enable_special_project = {
+					name = srl_rescure_our_leader_sp
+					location = this
+					owner = event_target:t_owner
+				}
+				enable_special_project = {
+					name = srl_rescure_their_leader_sp
+					location = this
+					owner = event_target:t_combatant_country
+				}
+			}
+		}
+	}
+}
+
+# on_ship_destroyed_victim
+# This = owner of ship 1 (destroyed)
+# From = owner of ship 2 (combatant)
+# FromFrom = ship 1
+# FromFromFrom = ship 2
+country_event = {
+	id = srl.2
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		fromfrom = {
+			exists = owner
+			exists = leader
+		}
+	}
+
+	immediate = {
+		# log = ">> on_ship_destroyed_perp THIS [this.GetName] FROM [from.GetName] FROMFROM [fromfrom.GetName] FROMFROMFROM [fromfromfrom.GetName]"
+
+		FromFrom = {
+			fleet = {
+				save_event_target_as = t_destroyed_fleet
+			}
+			leader = {
+				save_event_target_as = t_leader
+			}
+		}
+
+		event_target:t_destroyed_fleet = {
+			if = {
+				limit = {
+					event_target:t_leader = {
+						NOT = { has_leader_flag = srl_has_calculated_destroyed_ship_position }
+					}
+				}
+				closest_system = {
+					max_steps = 0
+	
+					save_event_target_as = t_system
+					ordered_system_planet = {
+						limit = {
+							NOT = {
+								has_planet_flag = srl_has_recovering_leader
+							}
+						}
+						position = 0
+						order_by = value:srl_closest_planet_to_fleet_distance
+						inverse = yes
+			
+						save_event_target_as = t_planet
+					}
+				}
+			}
+		}
+
+		event_target:t_leader = {
+			set_timed_leader_flag = {
+				flag = has_destroyed_ship
+				days = 2
+			}
+			set_timed_leader_flag = {
+				flag = has_destroyed_ship_by_country@From # combatant country
+				days = 2
+			}
+
+
+			if = {
+				limit = {
+					exists = event_target:t_system
+					exists = event_target:t_planet
+				}
+
+				set_timed_leader_flag = {
+					flag = has_destroyed_ship_system@event_target:t_system
+					days = 15
+				}
+				set_timed_leader_flag = {
+					flag = has_destroyed_ship_near_planet@event_target:t_planet
+					days = 15
+				}
+				set_timed_leader_flag = {
+					flag = srl_has_calculated_destroyed_ship_position
+					days = 15
+				}
+			}
+		}
+	}
+}
+
+# this = Ship scope
+# fromfrom = Planet scope
+# from = Ship scope
+# srl_rescure_our_leader_sp on_success
+ship_event = {
+	id = srl.3
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		srl_get_recovering_leader_target = yes
+
+		random_list = {
+			75 = {
+				modifier = {
+					factor = 0
+					NOT = { exists = event_target:t_recovered_leader }
+				}
+				complete_leader_recovering = yes
+			}
+			25 = {
+
+			}
+		}
+	}
+}
+
+# this = Ship scope
+# fromfrom = Planet scope
+# from = Ship scope
+# srl_rescure_our_leader_sp on_success
+ship_event = {
+	id = srl.4
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		srl_get_recovering_leader_target = yes
+
+		random_list = {
+			40 = {
+				modifier = {
+					factor = 0
+					NOT = { exists = event_target:t_recovered_leader }
+				}
+				complete_leader_recovering = yes
+			}
+			60 = {
+
+			}
+		}
+	}
+}

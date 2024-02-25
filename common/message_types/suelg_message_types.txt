@@ -1,0 +1,10 @@
+message_type = {
+	key = "SRL_LEADER_RESCUED"
+	icon = "GFX_message_event_generic"
+	icon_frame = 1
+	name = "SRL_LEADER_RESCUED_TITLE"
+	sound_is_advisor = yes
+	ping = "arrow_notification_yellow"
+
+	category = planets
+}
